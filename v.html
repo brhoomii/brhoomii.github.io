@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💖 Be My Valentine?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f5f0 0%, #e8e4d9 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            max-width: 390px;
+            width: 100%;
+            animation: slideIn 0.5s ease-out;
+            border: 2px solid #f5f5f0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .emoji {
+            font-size: 120px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        /* Sparkle effect */
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        
+        .container::before {
+            content: '✨';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 20px;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        .container::after {
+            content: '✨';
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            font-size: 20px;
+            animation: sparkle 2s ease-in-out infinite 1s;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #8b7355;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #9a8a78;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        button {
+            flex: 1;
+            padding: 18px 30px;
+            font-size: 20px;
+            font-weight: 600;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #d4c4b0 0%, #b8a593 100%);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(184, 165, 147, 0.4);
+        }
+
+        .no-btn {
+            position: relative;
+            background: #f5f5f0;
+            color: #8b7355;
+            border: 2px solid #e8e4d9;
+        }
+
+        .no-btn:hover {
+            background: #e8e4d9;
+            transform: scale(1.05);
+        }
+        
+        /* Running away animation */
+        @keyframes runAway {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(var(--run-x), var(--run-y)) scale(1); }
+        }
+        
+        .run-away {
+            position: relative;
+            animation: runAway 0.3s ease-out forwards;
+        }
+
+        /* Confetti styles */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Warning modal */
+        .warning-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .warning-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 320px;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        .warning-content h2 {
+            font-size: 36px;
+            color: #8b7355;
+            margin-bottom: 20px;
+        }
+
+        .warning-content p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .creepy-message {
+            font-size: 24px;
+            color: #8b7355;
+            font-weight: 700;
+            margin-top: 20px;
+            animation: pulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🌹</div>
+        <h1>My Dearest Jouryati</h1>
+        <p class="subtitle">Will you be the light to my dawn,<br>the rhythm to my heart's song?<br>Will you be my Valentine? 💫</p>
+        <div class="buttons">
+            <button class="yes-btn" onclick="handleYes()">Yes, Forever 💖</button>
+            <button class="no-btn" onclick="handleNo(event)">Perhaps... 🌙</button>
+        </div>
+    </div>
+
+    <div class="warning-modal" id="warningModal">
+        <div class="warning-content">
+            <h2>⚠️ WRONG CHOICE! ⚠️</h2>
+            <p>Think again...</p>
+        </div>
+    </div>
+
+    <script>
+        function handleYes() {
+            // Create flower confetti
+            const flowerEmojis = ['🌸', '🌺', '🌹', '💐', '🌷', '🌻', '💕', '💖', '❤️', '💗'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createConfetti(flowerEmojis);
+                }, i * 50);
+            }
+
+            // Change the page content
+            setTimeout(() => {
+                document.querySelector('.container').innerHTML = `
+                    <div class="emoji">✨</div>
+                    <h1 style="color: #8b7355;">My Beloved Jouryati</h1>
+                    <p class="subtitle" style="font-size: 18px; color: #b8a593; line-height: 1.8; font-style: italic;">
+                        You are the dawn that breaks my night,<br>
+                        The melody in every song,<br>
+                        The answer to my heart's true call,<br>
+                        With you is where I belong.<br>
+                        <br>
+                        Like stars that dance in moonlit skies,<br>
+                        Our souls entwined as one,<br>
+                        Forever yours, my Jouryati,<br>
+                        My heart, my life and my soul 🌹
+                    </p>
+                    <div class="emoji" style="font-size: 60px; margin-top: 20px;">💕✨🌙</div>
+                `;
+            }, 1000);
+        }
+
+        function createConfetti(flowerEmojis) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.textContent = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            confetti.style.animationName = 'confetti-fall';
+            
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+
+        function handleNo(event) {
+            event.preventDefault();
+            
+            // Prevent multiple clicks during animation
+            const noBtn = document.querySelector('.no-btn');
+            if (noBtn.dataset.processing === 'true') {
+                return;
+            }
+            noBtn.dataset.processing = 'true';
+            
+            const container = document.querySelector('.container');
+            const runCount = parseInt(noBtn.dataset.runCount || 0);
+            
+            if (runCount < 3) {
+                // Button runs away and STAYS there
+                const containerRect = container.getBoundingClientRect();
+                const btnRect = noBtn.getBoundingClientRect();
+                
+                // Calculate random position within reasonable bounds
+                const maxX = containerRect.width - btnRect.width - 60;
+                const maxY = containerRect.height - btnRect.height - 60;
+                
+                const randomX = (Math.random() - 0.5) * maxX * 0.8;
+                const randomY = (Math.random() - 0.5) * maxY * 0.8;
+                
+                // Get current transform or start from 0
+                const currentTransform = noBtn.style.transform || 'translate(0px, 0px)';
+                const currentMatch = currentTransform.match(/translate\(([^,]+),\s*([^)]+)\)/);
+                const currentX = currentMatch ? parseFloat(currentMatch[1]) : 0;
+                const currentY = currentMatch ? parseFloat(currentMatch[2]) : 0;
+                
+                // Add to existing position
+                const newX = currentX + randomX;
+                const newY = currentY + randomY;
+                
+                // Apply the new permanent position
+                noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+                noBtn.style.transition = 'transform 0.3s ease-out';
+                noBtn.dataset.runCount = runCount + 1;
+                
+                setTimeout(() => {
+                    noBtn.dataset.processing = 'false';
+                }, 400);
+            } else {
+                // After 3 attempts, show the final message
+                showCreepyMessage(container, noBtn);
+            }
+        }
+        
+        function showCreepyMessage(container, noBtn) {
+            // Add final creepy message
+            const creepyMsg = document.createElement('div');
+            creepyMsg.className = 'creepy-message';
+            creepyMsg.textContent = 'YOUR HEART KNOWS THE ANSWER, JOURYATI';
+            container.appendChild(creepyMsg);
+            
+            // Transform the No button to Yes (reset position)
+            setTimeout(() => {
+                noBtn.textContent = 'Yes, Forever 💖';
+                noBtn.className = 'yes-btn';
+                noBtn.style.opacity = '1';
+                noBtn.style.transform = 'translate(0px, 0px)'; // Reset to original position
+                noBtn.style.transition = 'all 0.5s ease-out';
+                noBtn.style.pointerEvents = 'auto';
+                noBtn.onclick = handleYes;
+                noBtn.dataset.processing = 'false';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
